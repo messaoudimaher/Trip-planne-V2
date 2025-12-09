@@ -17,6 +17,7 @@ export interface Activity {
   cost: number;
   category: 'food' | 'adventure' | 'culture' | 'relax' | 'transit';
   coordinates?: { lat: number; lng: number };
+  notes?: string;
 }
 
 export interface Trip {

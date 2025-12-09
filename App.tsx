@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { HomeView } from './views/HomeView';
 import { TripDashboardView } from './views/TripDashboardView';
 import { GlobalAnalyticsView } from './views/GlobalAnalyticsView';
@@ -70,23 +70,39 @@ const App: React.FC = () => {
   }, []);
 
   // Listen for Firebase Updates (Real-time Sync)
+  // Note: Local changes are handled optimistically for instant UI feedback
   useEffect(() => {
     if (isDbConnected) {
+      let isFirstLoad = true;
       const unsubscribe = subscribeToTrips((cloudTrips) => {
+        // On first load, check if we need to sync local trips to cloud
+        if (isFirstLoad) {
+          isFirstLoad = false;
+          
+          // Get current local trips at time of subscription
+          const currentLocalTrips = localStorage.getItem('maher_trips_data');
+          const localTrips = currentLocalTrips ? JSON.parse(currentLocalTrips) : [];
+          
+          // If Firebase is empty but we have local trips, sync them to cloud
+          if (cloudTrips.length === 0 && localTrips.length > 0) {
+            console.log("Firebase empty, syncing local trips to cloud...");
+            localTrips.forEach((trip: Trip) => saveTripToFirebase(trip));
+            return; // Don't overwrite local data yet
+          }
+        }
+        
+        // Update from Firebase (this keeps all devices in sync)
         setTrips(cloudTrips);
-        // We also update local storage as a cache/backup
         localStorage.setItem('maher_trips_data', JSON.stringify(cloudTrips));
       });
       return () => unsubscribe();
     }
   }, [isDbConnected]);
 
-  // Persist trips to LocalStorage (Only if NOT connected to DB, otherwise DB listener handles it)
+  // ALWAYS persist trips to LocalStorage (as backup and for offline use)
   useEffect(() => {
-    if (!isDbConnected) {
-      localStorage.setItem('maher_trips_data', JSON.stringify(trips));
-    }
-  }, [trips, isDbConnected]);
+    localStorage.setItem('maher_trips_data', JSON.stringify(trips));
+  }, [trips]);
 
 
   // --- Handlers ---
@@ -166,28 +182,36 @@ const App: React.FC = () => {
 
   // CRUD Operations with DB Support
   const handleCreateTrip = (newTrip: Trip) => {
+    // Always update local state immediately for instant feedback
+    setTrips(prev => [newTrip, ...prev]);
+    
+    // Also sync to Firebase if connected
     if (isDbConnected) {
       saveTripToFirebase(newTrip);
-    } else {
-      setTrips(prev => [newTrip, ...prev]);
     }
+    
     setCurrentView('home');
   };
 
   const handleUpdateTrip = (updatedTrip: Trip) => {
+    // Always update local state immediately
+    setTrips(prevTrips => prevTrips.map(t => t.id === updatedTrip.id ? updatedTrip : t));
+    
+    // Also sync to Firebase if connected
     if (isDbConnected) {
       saveTripToFirebase(updatedTrip);
-    } else {
-      setTrips(prevTrips => prevTrips.map(t => t.id === updatedTrip.id ? updatedTrip : t));
     }
   };
 
   const handleDeleteTrip = (tripId: string) => {
+    // Always update local state immediately
+    setTrips(prevTrips => prevTrips.filter(t => t.id !== tripId));
+    
+    // Also sync to Firebase if connected
     if (isDbConnected) {
       deleteTripFromFirebase(tripId);
-    } else {
-      setTrips(prevTrips => prevTrips.filter(t => t.id !== tripId));
     }
+    
     if (selectedTripId === tripId) {
       setSelectedTripId(null);
       setCurrentView('home');

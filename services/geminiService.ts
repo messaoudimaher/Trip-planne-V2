@@ -1,4 +1,4 @@
-import { GoogleGenAI, GenerateContentResponse, Chat } from "@google/genai";
+import { GoogleGenerativeAI } from "@google/generative-ai";
 import { Trip, Activity } from "../types";
 
 // Helper to safely get API key from Local Storage
@@ -10,7 +10,7 @@ const getApiKey = (): string => {
 const createAI = () => {
   const apiKey = getApiKey();
   if (!apiKey) return null;
-  return new GoogleGenAI({ apiKey });
+  return new GoogleGenerativeAI(apiKey);
 };
 
 export const suggestActivities = async (destination: string, interests: string[]): Promise<string> => {
@@ -21,11 +21,10 @@ export const suggestActivities = async (destination: string, interests: string[]
     const prompt = `Suggest 3 unique family-friendly activities in ${destination} based on these interests: ${interests.join(', ')}. 
     Format as a concise list with estimated costs.`;
     
-    const response: GenerateContentResponse = await ai.models.generateContent({
-      model: 'gemini-2.5-flash',
-      contents: prompt,
-    });
-    return response.text || "No suggestions found.";
+    const model = ai.getGenerativeModel({ model: 'gemini-2.0-flash-exp' });
+    const result = await model.generateContent(prompt);
+    const response = await result.response;
+    return response.text() || "No suggestions found.";
   } catch (error) {
     console.error("Gemini API Error:", error);
     return "Sorry, I couldn't fetch suggestions. Please check your API Key.";
@@ -48,17 +47,21 @@ export const chatWithAssistant = async (
   Help the user plan trips, manage budgets, and find activities. Keep responses concise and easy to read on mobile.`;
 
   try {
-    const chat: Chat = ai.chats.create({
-      model: 'gemini-2.5-flash',
-      config: { systemInstruction },
+    const model = ai.getGenerativeModel({ 
+      model: 'gemini-2.0-flash-exp',
+      systemInstruction: systemInstruction
+    });
+
+    const chat = model.startChat({
       history: history.map(h => ({
         role: h.role,
         parts: [{ text: h.text }]
       }))
     });
 
-    const response = await chat.sendMessage({ message: currentMessage });
-    return response.text;
+    const result = await chat.sendMessage(currentMessage);
+    const response = await result.response;
+    return response.text();
   } catch (error) {
     console.error("Gemini Chat Error:", error);
     return "I'm having trouble connecting. Please verify your API Key in Settings.";

@@ -27,6 +27,7 @@ export interface Trip {
   endDate: string;
   totalBudget: number;
   image: string;
+  programImage?: string;
   budgetCategories: BudgetCategory[];
   activities: Activity[];
 }

@@ -614,7 +614,524 @@ const TRABZON_ACTIVITIES: Activity[] = [
   }
 ];
 
+const TUNISIA_ACTIVITIES: Activity[] = [
+  {
+    id: 'tun-act1',
+    name: 'Roundtrip Flights to Tunis-Carthage',
+    date: '2026-03-20',
+    time: '11:00',
+    location: 'Tunis-Carthage Airport (TUN)',
+    cost: 200,
+    category: 'transit',
+    coordinates: { lat: 36.8510, lng: 10.2272 },
+    notes: 'Outbound flight from Paris. Arrived in the afternoon.'
+  },
+  {
+    id: 'tun-act2',
+    name: 'Boutique Riad stay in Tunis Medina',
+    date: '2026-03-20',
+    time: '14:30',
+    location: 'Dar El Jeld Hotel & Spa, Tunis Medina',
+    cost: 800,
+    category: 'relax',
+    coordinates: { lat: 36.8002, lng: 10.1697 },
+    notes: 'Stunning traditional riad in the heart of the Medina. 15-night total stay.'
+  },
+  {
+    id: 'tun-act3',
+    name: 'Souk Food Tour & Dinner at Dar El Jeld',
+    date: '2026-03-21',
+    time: '18:00',
+    location: 'Rue Dar El Jeld, Tunis',
+    cost: 120,
+    category: 'food',
+    coordinates: { lat: 36.8005, lng: 10.1702 },
+    notes: 'Tasted local delicacies in the Souk, followed by traditional Tunisian couscous.'
+  },
+  {
+    id: 'tun-act4',
+    name: 'Ancient Carthage & Sidi Bou Said Tour',
+    date: '2026-03-23',
+    time: '09:30',
+    location: 'Carthage Ruins & Sidi Bou Said Village',
+    cost: 80,
+    category: 'culture',
+    coordinates: { lat: 36.8524, lng: 10.3230 },
+    notes: 'Visited the Antonine Baths, Carthage Museum, and walked the blue-and-white streets.'
+  },
+  {
+    id: 'tun-act5',
+    name: 'Bardo National Museum Guided Visit',
+    date: '2026-03-25',
+    time: '10:00',
+    location: 'Bardo Palace, Tunis',
+    cost: 40,
+    category: 'culture',
+    coordinates: { lat: 36.8093, lng: 10.1344 },
+    notes: 'Stunning collection of Roman mosaics. Exceptional historical depth.'
+  },
+  {
+    id: 'tun-act6',
+    name: 'El Jem Roman Amphitheatre Day Trip',
+    date: '2026-03-27',
+    time: '08:30',
+    location: 'Amphitheatre of El Jem',
+    cost: 80,
+    category: 'adventure',
+    coordinates: { lat: 35.2964, lng: 10.7067 },
+    notes: 'Explored one of the largest and best-preserved Roman amphitheaters in the world.'
+  },
+  {
+    id: 'tun-act7',
+    name: '2-Day Sahara Desert Tour & Camel Trek',
+    date: '2026-03-29',
+    time: '07:00',
+    location: 'Douz & Ksar Ghilane Oasis',
+    cost: 200,
+    category: 'adventure',
+    coordinates: { lat: 33.0039, lng: 9.6322 },
+    notes: 'Camped in the desert under the stars, swam in hot springs at Ksar Ghilane.'
+  },
+  {
+    id: 'tun-act8',
+    name: 'Local Transport & Car Rental',
+    date: '2026-03-31',
+    time: '09:00',
+    location: 'Tunis / Sousse',
+    cost: 100,
+    category: 'transit',
+    coordinates: { lat: 35.8245, lng: 10.6387 },
+    notes: 'Louage (shared taxi), trains, and airport shuttle.'
+  },
+  {
+    id: 'tun-act9',
+    name: 'Seafood Dinner in Sousse Marina',
+    date: '2026-04-01',
+    time: '19:30',
+    location: 'Port El Kantaoui, Sousse',
+    cost: 130,
+    category: 'food',
+    coordinates: { lat: 35.8953, lng: 10.5985 },
+    notes: 'Fresh sea bass, grilled prawns, and local Tunisian wine.'
+  },
+  {
+    id: 'tun-act10',
+    name: 'Fine Dining at Restaurant L\'Astragale',
+    date: '2026-04-02',
+    time: '20:00',
+    location: 'Avenue de la Liberte, Tunis',
+    cost: 150,
+    category: 'food',
+    coordinates: { lat: 36.8188, lng: 10.1802 },
+    notes: 'Sophisticated French-Tunisian fusion cuisine in a gorgeous setting.'
+  },
+  {
+    id: 'tun-act11',
+    name: 'Sidi Bou Said Cafes & Souvenirs',
+    date: '2026-04-03',
+    time: '15:00',
+    location: 'Café des Délices, Sidi Bou Said',
+    cost: 100,
+    category: 'food',
+    coordinates: { lat: 36.8712, lng: 10.3478 },
+    notes: 'Famous mint tea with pine nuts, bought dates and Tunisian pottery.'
+  }
+];
+
+const BRUSSELS_ACTIVITIES: Activity[] = [
+  {
+    id: 'bru-act1',
+    name: 'Eurostar Train from Paris to Brussels',
+    date: '2026-06-06',
+    time: '08:00',
+    location: 'Gare du Midi, Brussels',
+    cost: 60,
+    category: 'transit',
+    coordinates: { lat: 50.8360, lng: 4.3355 },
+    notes: 'Outbound train. Quick 1h 22m journey.'
+  },
+  {
+    id: 'bru-act2',
+    name: 'City Center Hotel Check-in',
+    date: '2026-06-06',
+    time: '10:30',
+    location: 'Brussels City Center Hotel',
+    cost: 200,
+    category: 'relax',
+    coordinates: { lat: 50.8466, lng: 4.3528 },
+    notes: 'Stay in the city center for easy access to all landmarks.'
+  },
+  {
+    id: 'bru-act3',
+    name: 'Grand-Place, Galeries Saint-Hubert & Manneken Pis',
+    date: '2026-06-06',
+    time: '11:00',
+    location: 'Grand-Place, 1000 Brussels',
+    cost: 0,
+    category: 'culture',
+    coordinates: { lat: 50.8467, lng: 4.3525 },
+    notes: 'Explore stunning architecture, walk through Galeries Royales Saint-Hubert, see Manneken Pis.'
+  },
+  {
+    id: 'bru-act4',
+    name: 'Seafood Lunch at The Sea Tree',
+    date: '2026-06-06',
+    time: '13:00',
+    location: 'The Sea Tree, Brussels',
+    cost: 40,
+    category: 'food',
+    coordinates: { lat: 50.8475, lng: 4.3540 },
+    notes: 'Delicious seafood lunch near Grand-Place (Mussels/Fish).'
+  },
+  {
+    id: 'bru-act5',
+    name: 'Royal Quarter & Chocolate Tasting',
+    date: '2026-06-06',
+    time: '15:00',
+    location: 'Mont des Arts & Neuhaus Chocolate',
+    cost: 30,
+    category: 'food',
+    coordinates: { lat: 50.8444, lng: 4.3590 },
+    notes: 'Mont des Arts viewpoint, Royal Palace (outside), and chocolate tasting at Neuhaus/Leonidas.'
+  },
+  {
+    id: 'bru-act6',
+    name: 'Dinner & Night Lights at Le Caire',
+    date: '2026-06-06',
+    time: '20:00',
+    location: 'Le Caire Restaurant, Brussels',
+    cost: 50,
+    category: 'food',
+    coordinates: { lat: 50.8480, lng: 4.3510 },
+    notes: 'Halal Egyptian & Mediterranean cuisine. Finish with a romantic walk to see Grand-Place illuminated.'
+  },
+  {
+    id: 'bru-act7',
+    name: 'Atomium & Mini-Europe Visit',
+    date: '2026-06-07',
+    time: '09:30',
+    location: 'Atomium, Square de l\'Atomium',
+    cost: 45,
+    category: 'culture',
+    coordinates: { lat: 50.8949, lng: 4.3415 },
+    notes: 'Visit the iconic Atomium, enjoy panoramic views and the colorful Mini-Europe.'
+  },
+  {
+    id: 'bru-act8',
+    name: 'Seafood Lunch near Atomium',
+    date: '2026-06-07',
+    time: '13:00',
+    location: 'Atomium area restaurant',
+    cost: 35,
+    category: 'food',
+    coordinates: { lat: 50.8930, lng: 4.3440 },
+    notes: 'Enjoy seafood pasta or fresh salads near the Atomium.'
+  },
+  {
+    id: 'bru-act9',
+    name: 'Parks & European Quarter Walk',
+    date: '2026-06-07',
+    time: '15:00',
+    location: 'Parc du Cinquantenaire',
+    cost: 0,
+    category: 'culture',
+    coordinates: { lat: 50.8385, lng: 4.3787 },
+    notes: 'Walk around European Parliament area, admire the grand arch and modern architecture.'
+  },
+  {
+    id: 'bru-act10',
+    name: 'Sablon & Farewell Dinner',
+    date: '2026-06-07',
+    time: '19:30',
+    location: 'Sablon Neighborhood, Brussels',
+    cost: 60,
+    category: 'food',
+    coordinates: { lat: 50.8402, lng: 4.3538 },
+    notes: 'Explore elegant Sablon, antique shops, chocolate stores. Relax and enjoy a farewell dinner.'
+  },
+  {
+    id: 'bru-act11',
+    name: 'Local Transport (Metro/Trams/Buses)',
+    date: '2026-06-08',
+    time: '10:00',
+    location: 'Brussels Metro System',
+    cost: 40,
+    category: 'transit',
+    coordinates: { lat: 50.8450, lng: 4.3500 },
+    notes: 'Transit cards for navigating the city.'
+  }
+];
+
+const BARCELONA_ACTIVITIES: Activity[] = [
+  {
+    id: 'bar-act1',
+    name: 'Flight from Paris to Barcelona',
+    date: '2026-06-08',
+    time: '10:00',
+    location: 'Barcelona-El Prat Airport (BCN)',
+    cost: 100,
+    category: 'transit',
+    coordinates: { lat: 41.2974, lng: 2.0833 },
+    notes: 'Outbound flight. Welcome to Catalonia!'
+  },
+  {
+    id: 'bar-act2',
+    name: 'Boutique Apartment Stay - El Born',
+    date: '2026-06-08',
+    time: '15:00',
+    location: 'Carrer de la Princesa, El Born, Barcelona',
+    cost: 600,
+    category: 'relax',
+    coordinates: { lat: 41.3853, lng: 2.1815 },
+    notes: 'Perfect base apartment in the vibrant and historic El Born neighborhood.'
+  },
+  {
+    id: 'bar-act3',
+    name: 'Sunset Walk to Port Vell & Marina',
+    date: '2026-06-08',
+    time: '18:30',
+    location: 'Port Vell Marina, Barcelona',
+    cost: 0,
+    category: 'relax',
+    coordinates: { lat: 41.3780, lng: 2.1810 },
+    notes: 'Explore Santa Maria del Mar, Parc de la Ciutadella, and enjoy sunset views at the marina.'
+  },
+  {
+    id: 'bar-act4',
+    name: 'Tapas Dinner at Bodega La Puntual',
+    date: '2026-06-08',
+    time: '20:30',
+    location: 'Bodega La Puntual, Carrer de Montcada',
+    cost: 60,
+    category: 'food',
+    coordinates: { lat: 41.3848, lng: 2.1811 },
+    notes: 'Traditional tapas. Try Patatas Bravas, Jamon Iberico, and Pan con Tomate.'
+  },
+  {
+    id: 'bar-act5',
+    name: 'Casa Batllo Guided Tour',
+    date: '2026-06-09',
+    time: '09:00',
+    location: 'Passeig de Gracia, 43',
+    cost: 70,
+    category: 'culture',
+    coordinates: { lat: 41.3916, lng: 2.1649 },
+    notes: 'Booked first morning slot to beat the crowds. Appreciate Gaudi\'s masterpiece (2-3h).'
+  },
+  {
+    id: 'bar-act6',
+    name: 'Lunch & Stroll at Passeig de Gracia',
+    date: '2026-06-09',
+    time: '13:30',
+    location: 'Passeig de Gracia Area',
+    cost: 50,
+    category: 'food',
+    coordinates: { lat: 41.3920, lng: 2.1645 },
+    notes: 'Elegant lunch and walking tour of modernista architecture and shops.'
+  },
+  {
+    id: 'bar-act7',
+    name: 'Romantic Dinner at Terraza Martinez',
+    date: '2026-06-09',
+    time: '20:30',
+    location: 'Ctra. de Miramar, Montjuic',
+    cost: 120,
+    category: 'food',
+    coordinates: { lat: 41.3693, lng: 2.1706 },
+    notes: 'Stunning sunset and romantic dinner with panoramic views over the city and sea.'
+  },
+  {
+    id: 'bar-act8',
+    name: 'Spotify Camp Nou & FC Barcelona Museum',
+    date: '2026-06-10',
+    time: '09:30',
+    location: 'Spotify Camp Nou Stadium',
+    cost: 60,
+    category: 'culture',
+    coordinates: { lat: 41.3809, lng: 2.1228 },
+    notes: 'Touring the iconic stadium, trophies, and interactive club history exhibits (3-4h).'
+  },
+  {
+    id: 'bar-act9',
+    name: 'Lunch at Les Corts Neighborhood',
+    date: '2026-06-10',
+    time: '13:30',
+    location: 'Les Corts district, Barcelona',
+    cost: 40,
+    category: 'food',
+    coordinates: { lat: 41.3850, lng: 2.1290 },
+    notes: 'Delicious local lunch near the stadium.'
+  },
+  {
+    id: 'bar-act10',
+    name: 'Dinner at Arcano Restaurant',
+    date: '2026-06-10',
+    time: '20:30',
+    location: 'Arcano, Carrer dels Mercaders',
+    cost: 100,
+    category: 'food',
+    coordinates: { lat: 41.3852, lng: 2.1793 },
+    notes: 'Romantic, intimate dinner setting inside a historic 17th-century stone arch building.'
+  },
+  {
+    id: 'bar-act11',
+    name: 'Park Guell Monumental Zone Tour',
+    date: '2026-06-11',
+    time: '09:00',
+    location: 'Park Guell, Barcelona',
+    cost: 30,
+    category: 'culture',
+    coordinates: { lat: 41.4145, lng: 2.1527 },
+    notes: 'Booked early slot. Enjoy amazing colorful mosaics and the serpentine bench.'
+  },
+  {
+    id: 'bar-act12',
+    name: 'Lunch & Wander in Gracia District',
+    date: '2026-06-11',
+    time: '13:00',
+    location: 'Gracia Neighborhood, Barcelona',
+    cost: 30,
+    category: 'food',
+    coordinates: { lat: 41.4025, lng: 2.1560 },
+    notes: 'Cozy lunch in a tree-lined square and walk through bohemian streets.'
+  },
+  {
+    id: 'bar-act13',
+    name: 'Sunset at Bunkers del Carmel',
+    date: '2026-06-11',
+    time: '18:30',
+    location: 'Bunkers del Carmel viewpoint',
+    cost: 0,
+    category: 'adventure',
+    coordinates: { lat: 41.4193, lng: 2.1618 },
+    notes: 'Undoubtedly the best 360-degree panoramic sunset viewpoint in Barcelona.'
+  },
+  {
+    id: 'bar-act14',
+    name: 'Dinner at Can Fisher Seafood',
+    date: '2026-06-11',
+    time: '21:00',
+    location: 'Avinguda del Litoral, Bogatell',
+    cost: 80,
+    category: 'food',
+    coordinates: { lat: 41.3934, lng: 2.2030 },
+    notes: 'Fresh Mediterranean seafood, beach views, and wonderful romantic atmosphere.'
+  },
+  {
+    id: 'bar-act15',
+    name: 'Bogatell Beach Day',
+    date: '2026-06-12',
+    time: '10:00',
+    location: 'Bogatell Beach, Barcelona',
+    cost: 0,
+    category: 'relax',
+    coordinates: { lat: 41.3936, lng: 2.2045 },
+    notes: 'Relaxing, swimming, and sunbathing at Bogatell beach.'
+  },
+  {
+    id: 'bar-act16',
+    name: 'Seafood Lunch by Bogatell Beach',
+    date: '2026-06-12',
+    time: '13:30',
+    location: 'Bogatell Beach promenade',
+    cost: 50,
+    category: 'food',
+    coordinates: { lat: 41.3930, lng: 2.2025 },
+    notes: 'Enjoying fresh paella or fideua next to the sand.'
+  },
+  {
+    id: 'bar-act17',
+    name: 'Sunset Catamaran Sailing Cruise',
+    date: '2026-06-12',
+    time: '19:30',
+    location: 'Port Olimpic, Barcelona',
+    cost: 120,
+    category: 'adventure',
+    coordinates: { lat: 41.3854, lng: 2.1970 },
+    notes: 'A romantic sunset sail on the Mediterranean Sea with drinks and light music.'
+  },
+  {
+    id: 'bar-act18',
+    name: 'Farewell Dinner at 7 Portes',
+    date: '2026-06-12',
+    time: '21:30',
+    location: 'Passeig d\'Isabel II, 14',
+    cost: 120,
+    category: 'food',
+    coordinates: { lat: 41.3822, lng: 2.1834 },
+    notes: 'Classic Catalan cuisine and paella in a legendary, historic atmosphere.'
+  },
+  {
+    id: 'bar-act19',
+    name: 'Local Transport & Metro Card',
+    date: '2026-06-13',
+    time: '10:00',
+    location: 'Barcelona Metro / Taxis',
+    cost: 50,
+    category: 'transit',
+    coordinates: { lat: 41.3850, lng: 2.1734 },
+    notes: 'T-Casual cards and taxi to the airport.'
+  },
+  {
+    id: 'bar-act20',
+    name: 'Return Flight to Paris',
+    date: '2026-06-13',
+    time: '14:00',
+    location: 'Barcelona-El Prat Airport (BCN)',
+    cost: 100,
+    category: 'transit',
+    coordinates: { lat: 41.2974, lng: 2.0833 },
+    notes: 'Heading home after an amazing trip.'
+  }
+];
+
 export const MOCK_TRIPS: Trip[] = [
+  {
+    id: 't-brussels-2026',
+    destination: 'Brussels, Belgium',
+    startDate: '2026-06-06',
+    endDate: '2026-06-08',
+    totalBudget: 300,
+    image: 'https://images.unsplash.com/photo-1642291373721-8431835753ea?q=80&w=1000&auto=format&fit=crop',
+    programImage: '/programs/brussels_2026.png',
+    budgetCategories: [
+      { id: 'bru-b1', name: 'Accommodation', allocated: 151, spent: 0, color: COLORS.sage },
+      { id: 'bru-b2', name: 'Food & Dining', allocated: 50, spent: 0, color: COLORS.warm },
+      { id: 'bru-b3', name: 'Match Tickets', allocated: 50, spent: 0, color: COLORS.violet },
+      { id: 'bru-b4', name: 'FlixBus Transport', allocated: 50, spent: 0, color: COLORS.sky },
+    ],
+    activities: BRUSSELS_ACTIVITIES
+  },
+  {
+    id: 't-barcelona-2026',
+    destination: 'Barcelona, Spain',
+    startDate: '2026-06-08',
+    endDate: '2026-06-13',
+    totalBudget: 970,
+    image: 'https://images.unsplash.com/photo-1511527661048-7fe73d85e9a4?q=80&w=1000&auto=format&fit=crop',
+    programImage: '/programs/barcelona_2026.png',
+    budgetCategories: [
+      { id: 'bar-b1', name: 'Airbnb Accommodation', allocated: 689, spent: 0, color: COLORS.sage },
+      { id: 'bar-b2', name: 'Flight to DUS', allocated: 150, spent: 0, color: COLORS.sky },
+      { id: 'bar-b3', name: 'Flight to BCN', allocated: 130, spent: 0, color: COLORS.amber },
+    ],
+    activities: BARCELONA_ACTIVITIES
+  },
+  {
+    id: 't-tunisia-2026',
+    destination: 'Tunisia',
+    startDate: '2026-03-20',
+    endDate: '2026-04-04',
+    totalBudget: 2000,
+    image: 'https://images.unsplash.com/photo-1543783207-ec64e4d95325?q=80&w=1000&auto=format&fit=crop',
+    budgetCategories: [
+      { id: 'tun-b1', name: 'Accommodation', allocated: 800, spent: 800, color: COLORS.sage },
+      { id: 'tun-b2', name: 'Food & Dining', allocated: 500, spent: 500, color: COLORS.warm },
+      { id: 'tun-b3', name: 'Activities & Entry Fees', allocated: 400, spent: 400, color: COLORS.violet },
+      { id: 'tun-b4', name: 'Transportation', allocated: 300, spent: 300, color: COLORS.sky },
+    ],
+    activities: TUNISIA_ACTIVITIES
+  },
   {
     id: 't-istanbul-2025',
     destination: 'Istanbul, Turkey',

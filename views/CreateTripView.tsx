@@ -164,7 +164,7 @@ export const CreateTripView: React.FC<CreateTripViewProps> = ({ onSave, onCancel
             <div className="w-full text-center">
               <label className="block text-sm font-bold text-stone-400 uppercase tracking-widest mb-6">Total Budget Estimate</label>
               <div className="relative inline-block w-full max-w-md">
-                <span className="absolute left-6 top-1/2 -translate-y-1/2 text-4xl md:text-5xl font-bold text-stone-300">$</span>
+                <span className="absolute left-6 top-1/2 -translate-y-1/2 text-4xl md:text-5xl font-bold text-stone-300">€</span>
                 <input 
                   type="number" 
                   className="w-full pl-12 md:pl-16 pr-6 py-6 text-4xl md:text-6xl font-bold bg-stone-50 rounded-[2rem] focus:ring-4 focus:ring-sage-100 focus:bg-white outline-none transition-all text-stone-800 placeholder-stone-200 text-center shadow-inner"

@@ -105,7 +105,7 @@ export const TripMap: React.FC<TripMapProps> = ({ activities, center }) => {
               <p class="text-xs text-stone-500 mb-2">${activity.location}</p>
               <div class="flex items-center gap-2">
                  <span class="text-xs font-bold text-white px-2 py-0.5 rounded-full" style="background-color: ${color}">${activity.category}</span>
-                 ${activity.cost > 0 ? `<span class="text-xs font-bold text-stone-600">$${activity.cost}</span>` : ''}
+                 ${activity.cost > 0 ? `<span class="text-xs font-bold text-stone-600">€${activity.cost}</span>` : ''}
               </div>
             </div>
           `);

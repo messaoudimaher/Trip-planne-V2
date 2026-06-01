@@ -3,9 +3,10 @@ import { Trip, View, Activity, BudgetCategory } from '../types';
 import { 
   ArrowLeft, Calendar, MapPin, DollarSign, Plus, Map as MapIcon, 
   List, PieChart, Clock, Trash2, Edit2, X, Check, Utensils, 
-  Camera, Coffee, Ticket, Train, Filter, AlertTriangle, ImageOff 
+  Camera, Coffee, Ticket, Train, Filter, AlertTriangle, ImageOff, Maximize2 
 } from 'lucide-react';
 import { TripMap } from '../components/TripMap';
+import { ProgramViewer } from '../components/ProgramViewer';
 
 interface TripDashboardViewProps {
   trip: Trip;
@@ -20,9 +21,10 @@ export const TripDashboardView: React.FC<TripDashboardViewProps> = ({
   onTripUpdate,
   onDeleteTrip 
 }) => {
-  const [activeTab, setActiveTab] = useState<'overview' | 'itinerary' | 'map'>('itinerary');
+  const [activeTab, setActiveTab] = useState<'overview' | 'itinerary' | 'map' | 'program'>('itinerary');
   const [isAddActivityOpen, setIsAddActivityOpen] = useState(false);
   const [imageError, setImageError] = useState(false);
+  const [isFullscreenProgram, setIsFullscreenProgram] = useState(false);
   
   // Activity Sorting
   const [sortMethod, setSortMethod] = useState<'date' | 'time' | 'cost' | 'category'>('date');
@@ -136,15 +138,15 @@ export const TripDashboardView: React.FC<TripDashboardViewProps> = ({
                 <span className="text-sm font-bold uppercase tracking-wider opacity-60">Image Unavailable</span>
             </div>
         )}
-        <div className="absolute inset-0 bg-gradient-to-t from-stone-900/80 via-transparent to-stone-900/30" />
+        <div className="absolute inset-0 bg-gradient-to-t from-slate-900/85 via-slate-900/20 to-slate-900/30" />
         
         <div className="absolute top-6 left-6 z-20">
           <button 
             type="button"
             onClick={() => onNavigate('home')}
-            className="bg-white/20 backdrop-blur-md text-white p-3 rounded-full hover:bg-white hover:text-stone-900 transition-all active:scale-95"
+            className="bg-white/15 backdrop-blur-md text-white p-3 rounded-full hover:bg-white hover:text-slate-900 transition-all active:scale-95 border border-white/20"
           >
-            <ArrowLeft size={24} />
+            <ArrowLeft size={22} />
           </button>
         </div>
 
@@ -153,10 +155,10 @@ export const TripDashboardView: React.FC<TripDashboardViewProps> = ({
                type="button"
                onClick={() => setIsDeletingTrip(true)}
                onTouchEnd={() => setIsDeletingTrip(true)}
-               className="bg-white/20 backdrop-blur-md text-white hover:bg-red-500 hover:text-white p-3 rounded-full transition-all active:scale-95 flex items-center gap-2 cursor-pointer pointer-events-auto"
+               className="bg-white/15 backdrop-blur-md text-white hover:bg-rose-500 hover:text-white p-3 rounded-full transition-all active:scale-95 flex items-center gap-2 cursor-pointer pointer-events-auto border border-white/20"
                title="Delete Trip"
              >
-                 <Trash2 size={20} />
+                 <Trash2 size={18} />
                  <span className="hidden md:inline font-bold text-sm">Delete Trip</span>
              </button>
         </div>
@@ -164,21 +166,21 @@ export const TripDashboardView: React.FC<TripDashboardViewProps> = ({
         <div className="absolute bottom-0 left-0 w-full p-8 z-20">
           <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
             <div>
-              <div className="flex items-center gap-2 text-sage-200 font-bold mb-2 uppercase tracking-wider text-sm">
-                <Calendar size={16} />
-                <span>{new Date(trip.startDate).toLocaleDateString(undefined, { dateStyle: 'long' })} — {new Date(trip.endDate).toLocaleDateString(undefined, { dateStyle: 'long' })}</span>
+              <div className="flex items-center gap-2 text-amber-300 font-bold mb-2 uppercase tracking-wider text-xs">
+                <Calendar size={14} />
+                <span>{new Date(trip.startDate).toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' })} — {new Date(trip.endDate).toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' })}</span>
               </div>
               <h1 className="text-4xl md:text-5xl font-display font-extrabold text-white leading-tight">{trip.destination}</h1>
             </div>
             
-            <div className="flex gap-4">
-               <div className="bg-white/10 backdrop-blur-md rounded-2xl p-4 border border-white/10">
-                  <span className="block text-xs text-stone-300 uppercase tracking-wider">Total Spent</span>
-                  <span className="text-2xl font-bold text-white">${trip.budgetCategories.reduce((acc, c) => acc + c.spent, 0)}</span>
+            <div className="flex gap-3">
+               <div className="bg-white/10 backdrop-blur-md rounded-2xl p-4 border border-white/15">
+                  <span className="block text-xs text-white/60 uppercase tracking-wider font-semibold mb-0.5">Spent</span>
+                  <span className="text-2xl font-display font-bold text-white">€{trip.budgetCategories.reduce((acc, c) => acc + c.spent, 0).toLocaleString()}</span>
                </div>
-               <div className="bg-white/10 backdrop-blur-md rounded-2xl p-4 border border-white/10">
-                  <span className="block text-xs text-stone-300 uppercase tracking-wider">Budget</span>
-                  <span className="text-2xl font-bold text-sage-300">${trip.totalBudget}</span>
+               <div className="bg-white/10 backdrop-blur-md rounded-2xl p-4 border border-white/15">
+                  <span className="block text-xs text-white/60 uppercase tracking-wider font-semibold mb-0.5">Budget</span>
+                  <span className="text-2xl font-display font-bold text-amber-300">€{trip.totalBudget.toLocaleString()}</span>
                </div>
             </div>
           </div>
@@ -186,19 +188,20 @@ export const TripDashboardView: React.FC<TripDashboardViewProps> = ({
       </div>
 
       {/* Tabs */}
-      <div className="flex bg-white rounded-2xl p-1.5 shadow-sm border border-stone-100 mb-8 overflow-x-auto sticky top-20 z-40">
-        {[
-          { id: 'itinerary', icon: <List size={18} />, label: 'Itinerary' },
-          { id: 'map', icon: <MapIcon size={18} />, label: 'Map' },
-          { id: 'overview', icon: <PieChart size={18} />, label: 'Budget & Stats' },
-        ].map(tab => (
+      <div className="flex bg-white rounded-2xl p-1.5 shadow-sm border border-slate-100 mb-8 overflow-x-auto sticky top-20 z-40 gap-1">
+        {([
+          { id: 'itinerary', icon: <List size={16} />, label: 'Itinerary' },
+          { id: 'map',       icon: <MapIcon size={16} />, label: 'Map' },
+          { id: 'overview',  icon: <PieChart size={16} />, label: 'Budget' },
+          ...(trip.programImage ? [{ id: 'program', icon: <Calendar size={16} />, label: 'Trip Program' }] : []),
+        ] as { id: string; icon: React.ReactNode; label: string }[]).map(tab => (
           <button
             key={tab.id}
             onClick={() => setActiveTab(tab.id as any)}
-            className={`flex-1 flex items-center justify-center gap-2 py-3 px-6 rounded-xl font-bold transition-all whitespace-nowrap ${
+            className={`flex-1 flex items-center justify-center gap-2 py-2.5 px-4 rounded-xl font-bold transition-all duration-200 whitespace-nowrap text-sm ${
               activeTab === tab.id 
-                ? 'bg-stone-800 text-white shadow-md' 
-                : 'text-stone-500 hover:bg-stone-100 hover:text-stone-800'
+                ? 'bg-gradient-to-r from-brand-500 to-violet-600 text-white shadow-md shadow-brand-500/25' 
+                : 'text-slate-500 hover:bg-slate-50 hover:text-slate-700'
             }`}
           >
             {tab.icon}
@@ -209,6 +212,42 @@ export const TripDashboardView: React.FC<TripDashboardViewProps> = ({
 
       {/* Tab Content */}
       <div className="min-h-[400px]">
+        {activeTab === 'program' && trip.programImage && (
+          <div className="animate-fade-in" key="program-view">
+            {/* Header card */}
+            <div className="flex items-center gap-4 mb-6 bg-white rounded-2xl p-5 border border-slate-100 shadow-sm">
+              <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-brand-500 to-violet-600 flex items-center justify-center shadow-lg shadow-brand-500/30 flex-shrink-0">
+                <Calendar size={22} className="text-white" />
+              </div>
+              <div>
+                <h2 className="font-display font-extrabold text-xl text-slate-900">Trip Program</h2>
+                <p className="text-slate-400 text-sm">Your detailed day-by-day travel guide</p>
+              </div>
+              <button
+                type="button"
+                onClick={() => setIsFullscreenProgram(true)}
+                className="ml-auto flex items-center gap-2 text-xs font-bold text-brand-500 bg-brand-50 border border-brand-100 px-4 py-2 rounded-xl hover:bg-brand-100 transition-colors"
+              >
+                <Maximize2 size={13} />
+                Open Fullscreen
+              </button>
+            </div>
+
+            {/* Interactive Image Viewer */}
+            <ProgramViewer 
+              imageUrl={trip.programImage} 
+              destination={trip.destination} 
+              isFullscreen={isFullscreenProgram}
+              onFullscreenChange={setIsFullscreenProgram}
+            />
+
+            {/* Tip */}
+            <p className="text-center text-xs text-slate-400 mt-4 font-medium">
+              💡 Use your mouse wheel or gestures to zoom · Click and drag to pan · Toggles fullscreen viewer
+            </p>
+          </div>
+        )}
+
         {activeTab === 'map' && (
              <div className="animate-fade-in-up" key="map-view">
                 <TripMap activities={trip.activities} center={mapCenter} />
@@ -235,7 +274,7 @@ export const TripDashboardView: React.FC<TripDashboardViewProps> = ({
                             <div className="w-3 h-3 rounded-full" style={{ backgroundColor: cat.color }} />
                             {cat.name}
                          </span>
-                         <span className="text-stone-800">${cat.spent} / ${cat.allocated}</span>
+                         <span className="text-stone-800">€{cat.spent} / €{cat.allocated}</span>
                        </div>
                        <div className="h-3 bg-stone-100 rounded-full overflow-hidden">
                          <div 
@@ -255,7 +294,7 @@ export const TripDashboardView: React.FC<TripDashboardViewProps> = ({
                 </div>
                 <h3 className="text-2xl font-bold text-stone-800 mb-2">Remaining Budget</h3>
                 <p className="text-5xl font-display font-bold text-sage-600">
-                  ${trip.totalBudget - trip.budgetCategories.reduce((acc, c) => acc + c.spent, 0)}
+                  €{trip.totalBudget - trip.budgetCategories.reduce((acc, c) => acc + c.spent, 0)}
                 </p>
                 <p className="text-stone-500 mt-2">Available for spontaneity!</p>
              </div>
@@ -333,7 +372,7 @@ export const TripDashboardView: React.FC<TripDashboardViewProps> = ({
 
                     <div className="flex items-center justify-between md:justify-end gap-4 md:gap-8 mt-2 md:mt-0 pt-4 md:pt-0 border-t md:border-t-0 border-stone-50">
                       <div className="text-right">
-                        <span className="block text-xl font-bold text-stone-800">${activity.cost}</span>
+                        <span className="block text-xl font-bold text-stone-800">€{activity.cost}</span>
                         <span className="text-xs font-bold text-stone-400 uppercase tracking-wider bg-stone-50 px-2 py-1 rounded-full flex items-center gap-1">
                           {activity.category === 'food' && <Utensils size={10} />}
                           {activity.category === 'adventure' && <Camera size={10} />}
@@ -513,7 +552,7 @@ const ActivityModal: React.FC<{
               <div>
                 <label className="block text-xs font-bold text-stone-400 uppercase tracking-wider mb-2">Cost</label>
                 <div className="relative">
-                  <span className="absolute left-3 top-3.5 text-stone-500 font-bold">$</span>
+                  <span className="absolute left-3 top-3.5 text-stone-500 font-bold">€</span>
                   <input 
                     type="number" 
                     className="w-full bg-stone-50 border border-stone-200 rounded-xl p-3 pl-8 font-bold text-stone-800 focus:outline-none focus:border-sage-400"
@@ -592,7 +631,7 @@ const BudgetModal: React.FC<{
                             <div className="w-32">
                                 <label className="text-xs font-bold text-stone-400 uppercase">Allocated</label>
                                 <div className="relative">
-                                    <span className="absolute left-0 top-0 text-stone-500">$</span>
+                                    <span className="absolute left-0 top-0 text-stone-500">€</span>
                                     <input 
                                         type="number"
                                         value={cat.allocated}
@@ -607,7 +646,7 @@ const BudgetModal: React.FC<{
                 <div className="p-6 border-t border-stone-100 bg-stone-50 rounded-b-[2rem]">
                     <div className="flex justify-between items-center mb-4 text-sm font-bold text-stone-500">
                         <span>Total Budget</span>
-                        <span className="text-xl text-stone-800">${localCats.reduce((a,c) => a + c.allocated, 0)}</span>
+                        <span className="text-xl text-stone-800">€{localCats.reduce((a,c) => a + c.allocated, 0)}</span>
                     </div>
                     <button 
                         onClick={() => onSave(localCats)}
